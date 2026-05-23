@@ -1,77 +1,47 @@
-<x-layouts.app>
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="min-h-screen flex items-center justify-center px-6">
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-        <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-
-            <div class="mb-8 text-center">
-
-                <h1 class="text-4xl font-bold text-gray-900">
-                    ePTR
-                </h1>
-
-                <p class="mt-2 text-gray-500">
-                    Student • Instructor • School Portal
-                </p>
-            </div>
-
-            <form method="POST" action="#" class="space-y-6">
-                @csrf
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="you@example.com"
-                        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="••••••••"
-                        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                </div>
-
-                <div class="flex items-center justify-between text-sm">
-
-                    <label class="flex items-center gap-2 text-gray-600">
-                        <input type="checkbox" name="remember">
-                        Remember me
-                    </label>
-
-                    <a href="#" class="text-blue-600 hover:text-blue-700">
-                        Forgot password?
-                    </a>
-                </div>
-
-                <button
-                    type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-200"
-                >
-                    Sign In
-                </button>
-            </form>
-
-            <div class="mt-8 text-center text-sm text-gray-500">
-                Don’t have an account?
-
-                <a href="#" class="text-blue-600 font-medium hover:text-blue-700">
-                    Contact your school
-                </a>
-            </div>
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-    </div>
 
-</x-layouts.app>
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            </label>
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+
+            <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+    </form>
+</x-guest-layout>
