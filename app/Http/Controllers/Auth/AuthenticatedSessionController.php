@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!auth()->user()->is_active) {
+        if (auth()->user()->status === 'inactive') {
 
             Auth::logout();
 

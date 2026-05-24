@@ -16,7 +16,7 @@
 
                 <form
                     method="POST"
-                    action="{{ route('school.students.update', $student) }}"
+                    action="{{ route('instructor.students.update', $student) }}"
                     class="space-y-6"
                 >
 

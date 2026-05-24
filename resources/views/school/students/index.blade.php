@@ -77,18 +77,18 @@
                                     <!-- Status -->
                                     <td class="px-6 py-4">
 
-                                        @if($student->is_active)
-
+                                        @if($student->status === 'active')
                                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
                                                 Active
                                             </span>
-
-                                        @else
-
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                                        @elseif($student->status === 'inactive')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
                                                 Inactive
                                             </span>
-
+                                        @elseif($student->status === 'completed')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                                                Completed
+                                            </span>
                                         @endif
 
                                     </td>
@@ -115,39 +115,6 @@
 
                                                 </svg>
                                             </a>
-
-                                            <!-- Deactivate -->
-                                            @if($student->is_active)
-
-                                                <form
-                                                    method="POST"
-                                                    action="{{ route('school.students.deactivate', $student) }}"
-                                                >
-                                                    @csrf
-                                                    @method('PATCH')
-
-                                                    <button
-                                                        type="submit"
-                                                        class="text-gray-400 hover:text-red-600 transition"
-                                                        title="Deactivate Student"
-                                                        onclick="return confirm('Deactivate this student?')"
-                                                    >
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-5 w-5"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor">
-
-                                                            <path stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M6 18L18 6M6 6l12 12" />
-
-                                                        </svg>
-                                                    </button>
-
-                                                </form>
-                                            @endif
                                         </div>
                                     </td>
 

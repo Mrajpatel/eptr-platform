@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
     'password',
     'role',
     'school_id',
-    'is_active',
+    'status',
 ])]
 
 #[Hidden([
@@ -39,7 +39,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_active' => 'boolean',
         ];
     }
 
@@ -80,8 +79,35 @@ class User extends Authenticatable
         return $this->role === 'super_admin';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Permission Helpers
+    |--------------------------------------------------------------------------
+    */
+
     public function canManageStudents(): bool
     {
         return $this->isSchoolAdmin() || $this->isInstructor();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
+    }
+
+    public function isInactive(): bool
+    {
+        return $this->status === 'inactive';
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === 'completed';
     }
 }

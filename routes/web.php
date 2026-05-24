@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
             | Students
             |--------------------------------------------------------------------------
             */
+
             Route::get('/students', [StudentController::class, 'index'])
                 ->name('students.index');
 
@@ -97,6 +98,7 @@ Route::middleware('auth')->group(function () {
             | Instructors
             |--------------------------------------------------------------------------
             */
+
             Route::get('/instructors', [InstructorController::class, 'index'])
                 ->name('instructors.index');
 
@@ -104,18 +106,23 @@ Route::middleware('auth')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | Instructor
+    | Instructor Routes
     |--------------------------------------------------------------------------
     */
-
     Route::prefix('instructor')
         ->name('instructor.')
         ->group(function () {
 
-            Route::get('/students', [InstructorStudentController::class, 'index'])
-                ->name('students.index');
+        /*
+        |--------------------------------------------------------------------------
+        | Students
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/students', [InstructorStudentController::class, 'index']) ->name('students.index');
+        Route::get('/students/{student}/edit', [InstructorStudentController::class, 'edit'])->name('students.edit');
+        Route::patch('/students/{student}', [InstructorStudentController::class, 'update'])->name('students.update');
 
-        });
+    });
 
 });
 

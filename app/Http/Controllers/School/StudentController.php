@@ -17,7 +17,7 @@ class StudentController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        abort_if(!auth()->user()->isSchoolAdmin(), 403);
+        abort_if(!auth()->user()->canManageStudents(), 403);
 
         /*
         |--------------------------------------------------------------------------
@@ -76,6 +76,7 @@ class StudentController extends Controller
             'password' => Hash::make($validated['password']),
             'role' => 'student',
             'school_id' => auth()->user()->school_id,
+            'status' => 'active',
         ]);
 
         /*
@@ -122,7 +123,7 @@ class StudentController extends Controller
         */
 
         $user->update([
-            'is_active' => false,
+            'status' => 'inactive',
         ]);
 
         return back();
@@ -207,7 +208,10 @@ class StudentController extends Controller
                 'max:255',
                 'unique:users,email,' . $student->id,
             ],
-            'is_active' => ['required', 'boolean'],
+            'status' => [
+                'required',
+                'in:active,inactive,completed',
+            ],
         ]);
 
         /*
@@ -218,7 +222,7 @@ class StudentController extends Controller
         $student->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'is_active' => $request->is_active == '1',
+            'status' => $validated['status'],
         ]);
 
         /*
