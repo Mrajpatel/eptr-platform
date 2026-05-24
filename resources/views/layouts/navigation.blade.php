@@ -12,9 +12,50 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    {{-- Dashboard --}}
+                    <x-nav-link
+                        :href="route('dashboard')"
+                        :active="request()->routeIs('dashboard')"
+                    >
+                        Dashboard
                     </x-nav-link>
+
+                    {{-- School Admin Navigation --}}
+                    @if(auth()->user()->isSchoolAdmin())
+
+                        <x-nav-link
+                            :href="route('school.students.index')"
+                            :active="request()->routeIs('school.students.*')"
+                        >
+                            Students
+                        </x-nav-link>
+
+                        <x-nav-link
+                            :href="route('school.instructors.index')"
+                            :active="request()->routeIs('school.instructors.*')"
+                        >
+                            Instructors
+                        </x-nav-link>
+
+                        <x-nav-link
+                            :href="route('school.users.index')"
+                            :active="request()->routeIs('school.users.*')"
+                        >
+                            All Users
+                        </x-nav-link>
+
+                    @endif
+
+                    @if(auth()->user()->isInstructor())
+
+                        <x-nav-link
+                            :href="route('instructor.students.index')"
+                            :active="request()->routeIs('instructor.students.*')"
+                        >
+                            My Students
+                        </x-nav-link>
+
+                    @endif
                 </div>
             </div>
 
@@ -77,9 +118,49 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+
+            {{-- Dashboard --}}
+            <x-responsive-nav-link
+                :href="route('dashboard')"
+                :active="request()->routeIs('dashboard')"
+            >
+                Dashboard
             </x-responsive-nav-link>
+
+            {{-- School Admin Navigation --}}
+            @if(auth()->user()->isSchoolAdmin())
+
+                <x-responsive-nav-link
+                    :href="route('school.students.index')"
+                    :active="request()->routeIs('school.students.*')"
+                >
+                    Students
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link
+                    :href="route('school.instructors.index')"
+                    :active="request()->routeIs('school.instructors.*')"
+                >
+                    Instructors
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link
+                    :href="route('school.users.index')"
+                    :active="request()->routeIs('school.users.*')"
+                >
+                    All Users
+                </x-responsive-nav-link>
+
+            @endif
+
+            @if(auth()->user()->isInstructor())
+                <x-responsive-nav-link
+                    :href="route('instructor.students.index')"
+                    :active="request()->routeIs('instructor.students.*')"
+                >
+                    My Students
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
