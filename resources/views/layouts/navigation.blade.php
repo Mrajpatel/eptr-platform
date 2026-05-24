@@ -52,7 +52,7 @@
                             :href="route('instructor.students.index')"
                             :active="request()->routeIs('instructor.students.*')"
                         >
-                            My Students
+                            Students
                         </x-nav-link>
 
                     @endif
@@ -158,7 +158,7 @@
                     :href="route('instructor.students.index')"
                     :active="request()->routeIs('instructor.students.*')"
                 >
-                    My Students
+                    Students
                 </x-responsive-nav-link>
             @endif
         </div>

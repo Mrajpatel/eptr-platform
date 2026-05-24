@@ -34,21 +34,89 @@ Route::get('/dashboard', function () {
 
 })->middleware(['auth'])->name('dashboard');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    Route::get('/school/users', [UserController::class, 'index'])->name('school.users.index');
-    Route::get('/school/students', [StudentController::class, 'index'])->name('school.students.index');
-    Route::get('/school/instructors', [InstructorController::class, 'index'])->name('school.instructors.index');
 
-    // Instructor routes
-    Route::get('/instructor/students', [InstructorStudentController::class, 'index'])->name('instructor.students.index');
+    /*
+    |--------------------------------------------------------------------------
+    | Profile
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
+
+    /*
+    |--------------------------------------------------------------------------
+    | School Admin
+    |--------------------------------------------------------------------------
+    */
+
+    Route::prefix('school')
+        ->name('school.')
+        ->group(function () {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Users
+            |--------------------------------------------------------------------------
+            */
+            Route::get('/users', [UserController::class, 'index'])
+                ->name('users.index');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Students
+            |--------------------------------------------------------------------------
+            */
+            Route::get('/students', [StudentController::class, 'index'])
+                ->name('students.index');
+
+            Route::get('/students/create', [StudentController::class, 'create'])
+                ->name('students.create');
+
+            Route::post('/students', [StudentController::class, 'store'])
+                ->name('students.store');
+
+            Route::get('/students/{student}/edit', [StudentController::class, 'edit'])
+                ->name('students.edit');
+
+            Route::patch('/students/{student}', [StudentController::class, 'update'])
+                ->name('students.update');
+
+            Route::patch('/students/{user}/deactivate', [StudentController::class, 'deactivate'])
+                ->name('students.deactivate');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Instructors
+            |--------------------------------------------------------------------------
+            */
+            Route::get('/instructors', [InstructorController::class, 'index'])
+                ->name('instructors.index');
+
+        });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Instructor
+    |--------------------------------------------------------------------------
+    */
+
+    Route::prefix('instructor')
+        ->name('instructor.')
+        ->group(function () {
+
+            Route::get('/students', [InstructorStudentController::class, 'index'])
+                ->name('students.index');
+
+        });
+
 });
 
 require __DIR__.'/auth.php';

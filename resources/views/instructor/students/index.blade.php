@@ -1,17 +1,24 @@
 <x-app-layout>
 
     <x-slot name="header">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    Students
+                </h2>
 
-        <div>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                My Students
-            </h2>
+                <p class="text-sm text-gray-500 mt-1">
+                    View and manage student training
+                </p>
+            </div>
 
-            <p class="text-sm text-gray-500 mt-1">
-                View and manage student training
-            </p>
+            <a
+                href="{{ route('school.students.create') }}"
+                class="inline-flex items-center px-5 py-3 bg-blue-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-blue-700 transition"
+            >
+                Add Student
+            </a>
         </div>
-
     </x-slot>
 
     <div class="py-12">

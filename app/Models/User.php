@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
     'password',
     'role',
     'school_id',
+    'is_active',
 ])]
 
 #[Hidden([
@@ -36,11 +37,9 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-
             'email_verified_at' => 'datetime',
-
             'password' => 'hashed',
-
+            'is_active' => 'boolean',
         ];
     }
 
@@ -79,5 +78,10 @@ class User extends Authenticatable
     public function isSuperAdmin(): bool
     {
         return $this->role === 'super_admin';
+    }
+
+    public function canManageStudents(): bool
+    {
+        return $this->isSchoolAdmin() || $this->isInstructor();
     }
 }

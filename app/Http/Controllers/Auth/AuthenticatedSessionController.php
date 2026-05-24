@@ -26,9 +26,38 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Prevent Inactive Users
+        |--------------------------------------------------------------------------
+        */
+
+        if (!auth()->user()->is_active) {
+
+            Auth::logout();
+
+            return back()->withErrors([
+                'email' => 'Your account has been deactivated.',
+            ]);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Regenerate Session
+        |--------------------------------------------------------------------------
+        */
+
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        /*
+        |--------------------------------------------------------------------------
+        | Redirect
+        |--------------------------------------------------------------------------
+        */
+
+        return redirect()->intended(
+            route('dashboard', absolute: false)
+        );
     }
 
     /**
