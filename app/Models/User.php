@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -16,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
     'email',
     'password',
     'role',
+    'school_id',
 ])]
 
 #[Hidden([
@@ -28,15 +27,32 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Attribute casting
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Attribute Casting
+    |--------------------------------------------------------------------------
+    */
+
     protected function casts(): array
     {
         return [
+
             'email_verified_at' => 'datetime',
+
             'password' => 'hashed',
+
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 
     /*
