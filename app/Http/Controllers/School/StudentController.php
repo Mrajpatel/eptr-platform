@@ -63,6 +63,7 @@ class StudentController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'confirmed', 'min:8'],
+            'status' => ['required', 'in:active,inactive,completed'],
         ]);
 
         /*
@@ -76,7 +77,7 @@ class StudentController extends Controller
             'password' => Hash::make($validated['password']),
             'role' => 'student',
             'school_id' => auth()->user()->school_id,
-            'status' => 'active',
+            'status' => $validated['status'],
         ]);
 
         /*

@@ -117,8 +117,13 @@
                     </div>
 
                     <!-- Submit -->
-                    <div class="pt-4">
-
+                    <div class="pt-4 flex items-center gap-3 justify-end">
+                        <a
+                            href="{{ route('school.students.index') }}"
+                            class="inline-flex items-center px-4 py-2 bg-gray-100 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 transition"
+                        >
+                            Cancel
+                        </a>
                         <x-primary-button>
                             Create Student
                         </x-primary-button>

@@ -3,7 +3,7 @@
     <x-slot name="header">
 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Student
+            Edit Instructor
         </h2>
 
     </x-slot>
@@ -16,7 +16,7 @@
 
                 <form
                     method="POST"
-                    action="{{ route('school.students.update', $student) }}"
+                    action="{{ route('school.instructors.update', $instructor) }}"
                     class="space-y-6"
                 >
 
@@ -28,7 +28,7 @@
 
                         <x-input-label
                             for="name"
-                            :value="__('Name')"
+                            value="Full Name"
                         />
 
                         <x-text-input
@@ -36,7 +36,7 @@
                             name="name"
                             type="text"
                             class="block mt-1 w-full"
-                            :value="old('name', $student->name)"
+                            :value="old('name', $instructor->name)"
                             required
                         />
 
@@ -52,7 +52,7 @@
 
                         <x-input-label
                             for="email"
-                            :value="__('Email')"
+                            value="Email Address"
                         />
 
                         <x-text-input
@@ -60,7 +60,7 @@
                             name="email"
                             type="email"
                             class="block mt-1 w-full"
-                            :value="old('email', $student->email)"
+                            :value="old('email', $instructor->email)"
                             required
                         />
 
@@ -76,7 +76,7 @@
 
                         <x-input-label
                             for="status"
-                            :value="__('Status')"
+                            value="Status"
                         />
 
                         <select
@@ -84,17 +84,21 @@
                             name="status"
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full mt-1"
                         >
-                            <option value="active" {{ $student->status === 'active' ? 'selected' : '' }}>
+
+                            <option
+                                value="active"
+                                {{ $instructor->status === 'active' ? 'selected' : '' }}
+                            >
                                 Active
                             </option>
 
-                            <option value="inactive" {{ $student->status === 'inactive' ? 'selected' : '' }}>
+                            <option
+                                value="inactive"
+                                {{ $instructor->status === 'inactive' ? 'selected' : '' }}
+                            >
                                 Inactive
                             </option>
 
-                            <option value="completed" {{ $student->status === 'completed' ? 'selected' : '' }}>
-                                Completed
-                            </option>
                         </select>
 
                         <x-input-error
@@ -106,14 +110,16 @@
 
                     <!-- Submit -->
                     <div class="pt-4 flex items-center gap-3 justify-end">
+
                         <a
-                            href="{{ route('school.students.index') }}"
+                            href="{{ route('school.instructors.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-gray-100 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 transition"
                         >
                             Cancel
                         </a>
+
                         <x-primary-button>
-                            Update Student
+                            Update Instructor
                         </x-primary-button>
 
                     </div>

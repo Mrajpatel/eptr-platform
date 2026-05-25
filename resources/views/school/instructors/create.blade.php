@@ -2,9 +2,15 @@
 
     <x-slot name="header">
 
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Student
-        </h2>
+        <div>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Create Instructor
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-1">
+                Add a new instructor to your school
+            </p>
+        </div>
 
     </x-slot>
 
@@ -12,23 +18,22 @@
 
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <div class="bg-white shadow-sm sm:rounded-lg p-6">
 
                 <form
                     method="POST"
-                    action="{{ route('school.students.update', $student) }}"
+                    action="{{ route('school.instructors.store') }}"
                     class="space-y-6"
                 >
 
                     @csrf
-                    @method('PATCH')
 
                     <!-- Name -->
                     <div>
 
                         <x-input-label
                             for="name"
-                            :value="__('Name')"
+                            value="Full Name"
                         />
 
                         <x-text-input
@@ -36,7 +41,7 @@
                             name="name"
                             type="text"
                             class="block mt-1 w-full"
-                            :value="old('name', $student->name)"
+                            :value="old('name')"
                             required
                         />
 
@@ -52,7 +57,7 @@
 
                         <x-input-label
                             for="email"
-                            :value="__('Email')"
+                            value="Email Address"
                         />
 
                         <x-text-input
@@ -60,7 +65,7 @@
                             name="email"
                             type="email"
                             class="block mt-1 w-full"
-                            :value="old('email', $student->email)"
+                            :value="old('email')"
                             required
                         />
 
@@ -71,12 +76,53 @@
 
                     </div>
 
+                    <!-- Password -->
+                    <div>
+
+                        <x-input-label
+                            for="password"
+                            value="Password"
+                        />
+
+                        <x-text-input
+                            id="password"
+                            name="password"
+                            type="password"
+                            class="block mt-1 w-full"
+                            required
+                        />
+
+                        <x-input-error
+                            :messages="$errors->get('password')"
+                            class="mt-2"
+                        />
+
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+
+                        <x-input-label
+                            for="password_confirmation"
+                            value="Confirm Password"
+                        />
+
+                        <x-text-input
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            type="password"
+                            class="block mt-1 w-full"
+                            required
+                        />
+
+                    </div>
+
                     <!-- Status -->
                     <div>
 
                         <x-input-label
                             for="status"
-                            :value="__('Status')"
+                            value="Status"
                         />
 
                         <select
@@ -84,17 +130,15 @@
                             name="status"
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full mt-1"
                         >
-                            <option value="active" {{ $student->status === 'active' ? 'selected' : '' }}>
+
+                            <option value="active">
                                 Active
                             </option>
 
-                            <option value="inactive" {{ $student->status === 'inactive' ? 'selected' : '' }}>
+                            <option value="inactive">
                                 Inactive
                             </option>
 
-                            <option value="completed" {{ $student->status === 'completed' ? 'selected' : '' }}>
-                                Completed
-                            </option>
                         </select>
 
                         <x-input-error
@@ -107,13 +151,13 @@
                     <!-- Submit -->
                     <div class="pt-4 flex items-center gap-3 justify-end">
                         <a
-                            href="{{ route('school.students.index') }}"
+                            href="{{ route('school.instructors.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-gray-100 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 transition"
                         >
                             Cancel
                         </a>
                         <x-primary-button>
-                            Update Student
+                            Create Instructor
                         </x-primary-button>
 
                     </div>
