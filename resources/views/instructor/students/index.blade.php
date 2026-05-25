@@ -14,7 +14,7 @@
                 </p>
             </div>
             <a
-                href="{{ route('school.students.create') }}"
+                href="{{ route('instructor.students.create') }}"
                 class="inline-flex items-center px-5 py-3 bg-blue-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-blue-700 transition"
             >
                 Add Student

@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | School Admin
+    | School Admin: routes managed by school/school-amin
     |--------------------------------------------------------------------------
     */
 
@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | Instructor Routes
+    | Instructor: access routes managed by instructor
     |--------------------------------------------------------------------------
     */
     Route::prefix('instructor')
@@ -119,6 +119,8 @@ Route::middleware('auth')->group(function () {
         |--------------------------------------------------------------------------
         */
         Route::get('/students', [InstructorStudentController::class, 'index']) ->name('students.index');
+        Route::get('/students/create', [InstructorStudentController::class, 'create'])->name('students.create');
+        Route::post('/students', [InstructorStudentController::class, 'store'])->name('students.store');
         Route::get('/students/{student}/edit', [InstructorStudentController::class, 'edit'])->name('students.edit');
         Route::patch('/students/{student}', [InstructorStudentController::class, 'update'])->name('students.update');
 

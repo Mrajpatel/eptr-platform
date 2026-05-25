@@ -35,6 +35,53 @@ class StudentController extends Controller
         );
     }
 
+    public function create()
+    {
+        abort_if(!auth()->user()->canManageStudents(), 403);
+        return view('instructor.students.create');
+    }
+
+    public function store(Request $request)
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Authorization
+        |--------------------------------------------------------------------------
+        */
+        abort_if(!auth()->user()->canManageStudents(), 403);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create Student
+        |--------------------------------------------------------------------------
+        */
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'student',
+            'school_id' => auth()->user()->school_id,
+            'status' => 'active',
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Redirect
+        |--------------------------------------------------------------------------
+        */
+        return redirect()->route('instructor.students.index');
+    }
     /*
     |--------------------------------------------------------------------------
     | Edit Student
