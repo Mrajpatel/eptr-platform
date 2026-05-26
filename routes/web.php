@@ -41,7 +41,6 @@ Route::middleware('auth')->group(function () {
     | Profile
     |--------------------------------------------------------------------------
     */
-
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -56,21 +55,20 @@ Route::middleware('auth')->group(function () {
     | School Admin: routes managed by school/school-amin
     |--------------------------------------------------------------------------
     */
-
     Route::prefix('school')
         ->name('school.')
         ->group(function () {
 
             /*
             |--------------------------------------------------------------------------
-            | Users
+            | Manage Users
             |--------------------------------------------------------------------------
             */
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
             /*
             |--------------------------------------------------------------------------
-            | Students Page
+            | Manage Students 
             |--------------------------------------------------------------------------
             */
             Route::get('/students', [StudentController::class, 'index'])->name('students.index');
@@ -79,10 +77,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
             Route::patch('/students/{student}', [StudentController::class, 'update'])->name('students.update');
             Route::patch('/students/{user}/deactivate', [StudentController::class, 'deactivate'])->name('students.deactivate');
-
+            
+            Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show');
             /*
             |--------------------------------------------------------------------------
-            | Instructors Page
+            | Manage Instructors
             |--------------------------------------------------------------------------
             */
             Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors.index');
@@ -104,7 +103,7 @@ Route::middleware('auth')->group(function () {
 
         /*
         |--------------------------------------------------------------------------
-        | Students
+        | Manage Students
         |--------------------------------------------------------------------------
         */
         Route::get('/students', [InstructorStudentController::class, 'index']) ->name('students.index');

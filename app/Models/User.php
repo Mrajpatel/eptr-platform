@@ -110,4 +110,9 @@ class User extends Authenticatable
     {
         return $this->status === 'completed';
     }
+
+    public function studentProfile()
+    {
+        return $this->hasOne(StudentProfile::class);
+    }
 }
