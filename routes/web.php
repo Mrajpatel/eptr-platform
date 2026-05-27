@@ -7,6 +7,7 @@ use App\Http\Controllers\School\UserController;
 use App\Http\Controllers\School\StudentController;
 use App\Http\Controllers\School\InstructorController;
 use App\Http\Controllers\Instructor\StudentController as InstructorStudentController;
+use App\Http\Controllers\PtrController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -89,6 +90,13 @@ Route::middleware('auth')->group(function () {
             Route::post('/instructors', [InstructorController::class, 'store'])->name('instructors.store');
             Route::get('/instructors/{instructor}/edit', [InstructorController::class, 'edit'])->name('instructors.edit');
             Route::patch('/instructors/{instructor}', [InstructorController::class, 'update'])->name('instructors.update');
+
+            /*
+            |----------------------------------------------------------------------------
+            | PTR Routes
+            |----------------------------------------------------------------------------
+            */
+            Route::get('/students/{student}/ptr', [PtrController::class, 'show'])->name('students.ptr.show');
         });
 
     /*
@@ -111,6 +119,21 @@ Route::middleware('auth')->group(function () {
         Route::get('/students/{student}', [InstructorStudentController::class, 'show'])->name('students.show');
         Route::get('/students/{student}/edit', [InstructorStudentController::class, 'edit'])->name('students.edit');
         Route::patch('/students/{student}', [InstructorStudentController::class, 'update'])->name('students.update');
+
+        /*
+        |----------------------------------------------------------------------------
+        | PTR Routes
+        |----------------------------------------------------------------------------
+        */
+        Route::get('/students/{student}/ptr', [PtrController::class, 'show'])->name('students.ptr.show');
+
+    });
+
+    Route::prefix('student')
+    ->name('student.')
+    ->group(function () {
+
+        Route::get('/ptr', [PtrController::class, 'showOwn'])->name('ptr.show');
 
     });
 

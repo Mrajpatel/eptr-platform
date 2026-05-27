@@ -112,6 +112,13 @@
                                     <td class="px-6 py-4">
                                         <div class="flex items-center justify-end gap-3">
                                             <a
+                                                href="{{ route('school.students.ptr.show', $student) }}"
+                                                class="text-gray-400 hover:text-blue-600 transition"
+                                                title="Open PTR"
+                                            >
+                                                PTR
+                                            </a>
+                                            <a
                                                 href="{{ route('school.students.show', $student) }}"
                                                 class="text-gray-400 hover:text-blue-600 transition"
                                                 title="View Student"
