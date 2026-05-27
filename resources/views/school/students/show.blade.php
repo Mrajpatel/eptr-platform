@@ -297,33 +297,6 @@
 
             </div>
 
-            <!-- Future PTR -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-
-                <div class="p-6">
-
-                    <div class="flex items-center justify-between mb-4">
-
-                        <h3 class="text-lg font-semibold text-gray-900">
-                            Training Records
-                        </h3>
-
-                        <button
-                            class="inline-flex items-center px-4 py-2 bg-gray-100 rounded-lg text-sm font-medium text-gray-700"
-                        >
-                            Coming Soon
-                        </button>
-
-                    </div>
-
-                    <div class="text-gray-500 text-sm">
-                        No training records available yet.
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
 
     </div>
