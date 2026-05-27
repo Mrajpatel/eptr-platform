@@ -31,7 +31,8 @@ Route::get('/dashboard', function () {
         return view('dashboards.instructor');
     }
 
-    return view('dashboards.student');
+    // return view('dashboards.student');
+    return redirect()->route('student.ptr.show');
 
 })->middleware(['auth'])->name('dashboard');
 
