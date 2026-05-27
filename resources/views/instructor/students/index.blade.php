@@ -113,10 +113,21 @@
                                         <div class="flex items-center justify-end gap-3">
                                             <a
                                                 href="{{ route('instructor.students.ptr.show', $student) }}"
-                                                class="text-gray-400 hover:text-blue-600 transition"
+                                                class="text-gray-400 hover:text-purple-600 transition"
                                                 title="Open PTR"
                                             >
-                                                PTR
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-5 w-5"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+
+                                                    <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 4H7a2 2 0 01-2-2V6a2 2 0 012-2h7l5 5v9a2 2 0 01-2 2z" />
+
+                                                </svg>
                                             </a>
 
 
